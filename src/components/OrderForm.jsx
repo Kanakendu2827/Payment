@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { Atom } from "react-loading-indicators";
 import qrCodeImage from "../assets/Qr code.jpeg";
 
 function OrderForm() {
   const PRODUCT_PRICE = 499;
-  const GOOGLE_SCRIPT_URL = (import.meta.env.DEV
-    ? "/api/google-script"
-    : "/api/google-script"
-  ).trim();
+  const GOOGLE_SCRIPT_URL = "/api/google-script";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -117,12 +113,18 @@ function OrderForm() {
         deliveryCharge,
         amount: total,
         screenshot: screenshotDataUrl,
+        screenshotBase64: screenshotDataUrl.split(',')[1] || "",
+        screenshotType: screenshot?.type || "image/png",
+        screenshotName: screenshot?.name || "payment-screenshot.png",
         fileType: screenshot?.type || "image/png",
       };
 
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(payload),
         mode: "cors",
       });
@@ -242,8 +244,7 @@ function OrderForm() {
             </div>
 
             {isSubmitting && (
-              <div style={{ marginTop: "16px", display: "flex", justifyContent: "column", alignItems: "center", gap: "8px", color: "#0f8f3f", fontWeight: 600 }}>
-                <Atom color="#32cd32" size="medium" text="" textColor="" />
+              <div style={{ marginTop: "16px", color: "#0f8f3f", fontWeight: 600 }}>
                 <span>Submitting your payment proof...</span>
               </div>
             )}

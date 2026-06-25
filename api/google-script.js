@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwJ_JhCJgLOwHdMQ4rcwF5WBPaCMAAzF4_2ZazytK-swBUwo_01wcYgzTBWtmc4RRSq/exec', {
+    const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL || process.env.VITE_GOOGLE_APPS_SCRIPT_URL || process.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbx7QpI9dcyzvPNHaO8pObxUDTNV5MRcR_6LeRWMD7yCVtThJTbwP1_WQsnsoUdmZUCC/exec';
+    const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
