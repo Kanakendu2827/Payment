@@ -96,7 +96,7 @@ function PaymentPage() {
       navigate("/");
     } catch (error) {
       console.error(error);
-      alert("Submission Failed");
+      alert(error?.message || "Submission Failed");
     } finally {
       setIsSubmitting(false);
     }
