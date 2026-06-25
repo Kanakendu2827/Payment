@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .checkout-container {
+    padding: 12px !important;
+    margin: 8px auto !important;
+  }
+
+  .checkout-header {
+    padding: 18px !important;
+    border-radius: 12px !important;
+  }
+
+  .checkout-header h1 {
+    font-size: 22px !important;
+  }
+
+  .checkout-header p {
+    font-size: 14px !important;
+  }
+
+  .checkout-button {
+    font-size: 15px !important;
+    padding: 12px !important;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 14px !important;
+    padding: 10px !important;
+  }
+
+  .checkout-card {
+    padding: 16px !important;
+  }
+
+  .checkout-summary-row {
+    font-size: 14px !important;
+  }
+}

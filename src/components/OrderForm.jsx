@@ -142,8 +142,8 @@ function OrderForm() {
   };
 
   return (
-    <div style={{ maxWidth: "900px", margin: "30px auto", padding: "24px", fontFamily: "Arial, sans-serif" }}>
-      <div style={{ background: "linear-gradient(135deg, #0f8f3f 0%, #7a0f2d 100%)", color: "#fff", padding: "28px", borderRadius: "16px", marginBottom: "24px" }}>
+    <div className="checkout-container" style={{ maxWidth: "900px", margin: "30px auto", padding: "24px", fontFamily: "Arial, sans-serif", width: "100%", boxSizing: "border-box" }}>
+      <div className="checkout-header" style={{ background: "linear-gradient(135deg, #0f8f3f 0%, #7a0f2d 100%)", color: "#fff", padding: "28px", borderRadius: "16px", marginBottom: "24px", width: "100%", boxSizing: "border-box" }}>
         <h1 style={{ margin: 0, fontSize: "28px" }}>Secure Checkout</h1>
         <p style={{ marginTop: "8px", fontSize: "16px", lineHeight: 1.5 }}>
           Fill in your details, review the bill, and complete the payment with a screenshot upload.
@@ -151,8 +151,8 @@ function OrderForm() {
       </div>
 
       <form onSubmit={showPayment ? handleSubmit : handleProceed}>
-        <div style={{ display: "grid", gap: "24px", gridTemplateColumns: "1.2fr 0.8fr", alignItems: "start" }}>
-          <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.05)" }}>
+        <div className="checkout-layout" style={{ display: "grid", gap: "24px", gridTemplateColumns: "minmax(0, 1.2fr) minmax(280px, 0.8fr)", alignItems: "start" }}>
+          <div className="checkout-card" style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.05)" }}>
             <h2 style={{ marginTop: 0 }}>Customer Details</h2>
 
             <label style={labelStyle}>Full Name</label>
@@ -196,7 +196,7 @@ function OrderForm() {
             </select>
           </div>
 
-          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.04)" }}>
+          <div className="checkout-card" style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.04)" }}>
             <h2 style={{ marginTop: 0 }}>Bill Summary</h2>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
               <span>Product Price</span>
@@ -220,7 +220,7 @@ function OrderForm() {
               <strong>₹{total}</strong>
             </div>
 
-            <button type="submit" style={{ marginTop: "24px", width: "100%", padding: "14px", background: "linear-gradient(135deg, #0f8f3f 0%, #7a0f2d 100%)", color: "#fff", border: "none", borderRadius: "10px", fontSize: "16px", cursor: isSubmitting ? "wait" : "pointer", opacity: isSubmitting ? 0.85 : 1 }}>
+            <button className="checkout-button" type="submit" style={{ marginTop: "24px", width: "100%", padding: "14px", background: "linear-gradient(135deg, #0f8f3f 0%, #7a0f2d 100%)", color: "#fff", border: "none", borderRadius: "10px", fontSize: "16px", cursor: isSubmitting ? "wait" : "pointer", opacity: isSubmitting ? 0.85 : 1 }}>
               {showPayment ? (isSubmitting ? "Submitting..." : "Submit Order") : "Proceed to Payment"}
             </button>
 
@@ -231,10 +231,10 @@ function OrderForm() {
         </div>
 
         {showPayment && (
-          <div style={{ marginTop: "24px", background: "linear-gradient(135deg, #f7fff9 0%, #fdf2f5 100%)", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.05)" }}>
+          <div className="checkout-card" style={{ marginTop: "24px", background: "linear-gradient(135deg, #f7fff9 0%, #fdf2f5 100%)", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.05)" }}>
             <h2 style={{ marginTop: 0 }}>Payment</h2>
             <p>Scan the QR code and upload the payment screenshot after completing the transfer.</p>
-            <img src="/src/assets/Qr code.jpeg" alt="Payment QR Code" style={{ width: "220px", height: "220px", border: "1px solid #ddd", borderRadius: "12px", padding: "12px", objectFit: "contain" }} />
+            <img src="/src/assets/Qr code.jpeg" alt="Payment QR Code" style={{ width: "100%", maxWidth: "220px", height: "auto", aspectRatio: "1 / 1", border: "1px solid #ddd", borderRadius: "12px", padding: "12px", objectFit: "contain" }} />
             <div style={{ marginTop: "16px" }}>
               <label style={labelStyle}>Upload Payment Screenshot</label>
               <input type="file" accept="image/*" onChange={(e) => setScreenshot(e.target.files[0])} style={{ display: "block", marginTop: "8px" }} />
