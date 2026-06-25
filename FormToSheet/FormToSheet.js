@@ -4,10 +4,7 @@ function FormToSheet() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const scriptUrl = (import.meta.env.DEV
-      ? '/api/google-script'
-      : (import.meta.env.VITE_GOOGLE_SCRIPT_URL || '/api/google-script')
-    ).trim()
+    const scriptUrl = '/api/google-script'
 
     if (!scriptUrl) {
       alert('Set VITE_GOOGLE_SCRIPT_URL in your .env file first.')

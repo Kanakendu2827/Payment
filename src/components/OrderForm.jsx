@@ -5,7 +5,7 @@ function OrderForm() {
   const PRODUCT_PRICE = 499;
   const GOOGLE_SCRIPT_URL = (import.meta.env.DEV
     ? "/api/google-script"
-    : (import.meta.env.VITE_GOOGLE_SCRIPT_URL || "/api/google-script")
+    : "/api/google-script"
   ).trim();
 
   const [formData, setFormData] = useState({
