@@ -85,8 +85,8 @@ function OrderForm() {
       return;
     }
 
-    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_")) {
-      alert("Set VITE_GOOGLE_SCRIPT_URL in your .env file to send form data to Google Apps Script.");
+    if (!GOOGLE_SCRIPT_URL) {
+      alert("Submission endpoint is not configured.");
       return;
     }
 

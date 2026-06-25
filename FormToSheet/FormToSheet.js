@@ -7,7 +7,7 @@ function FormToSheet() {
     const scriptUrl = '/api/google-script'
 
     if (!scriptUrl) {
-      alert('Set VITE_GOOGLE_SCRIPT_URL in your .env file first.')
+      alert('Submission endpoint is not configured.')
       return
     }
 
