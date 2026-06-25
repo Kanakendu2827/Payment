@@ -58,22 +58,8 @@ function doPost(e) {
     const screenshotType = getValue(['fileType', 'screenshotType', 'type']) || 'image/png';
     const screenshotName = getValue(['screenshotName', 'fileName', 'name']) || 'payment-screenshot.png';
 
-    let screenshotUrl = '';
-    const cleanedScreenshotValue = String(screenshotValue || '').trim();
-    const dataUrlMatch = cleanedScreenshotValue.match(/^data:(.+);base64,(.+)$/i);
-
-    if (cleanedScreenshotValue) {
-      const mimeType = dataUrlMatch ? (dataUrlMatch[1] || screenshotType) : screenshotType;
-      const base64Payload = dataUrlMatch ? dataUrlMatch[2] : cleanedScreenshotValue;
-      const decodedBytes = Utilities.base64Decode(base64Payload);
-      const blob = Utilities.newBlob(decodedBytes, mimeType, screenshotName);
-
-      const file = DriveApp.createFile(blob);
-      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-      screenshotUrl = file.getUrl();
-    }
-
     const timestamp = new Date().toISOString();
+    const rowIndex = sheet.getLastRow() + 1;
     sheet.appendRow([
       timestamp,
       name,
@@ -86,14 +72,40 @@ function doPost(e) {
       deliveryType,
       amount,
       product,
-      screenshotName,
-      screenshotUrl
+      '',
+      ''
     ]);
+    SpreadsheetApp.flush();
+
+    let screenshotUrl = '';
+    let imageUploadError = '';
+    const cleanedScreenshotValue = String(screenshotValue || '').trim();
+    const dataUrlMatch = cleanedScreenshotValue.match(/^data:(.+);base64,(.+)$/i);
+
+    if (cleanedScreenshotValue) {
+      try {
+        const mimeType = dataUrlMatch ? (dataUrlMatch[1] || screenshotType) : screenshotType;
+        const base64Payload = dataUrlMatch ? dataUrlMatch[2] : cleanedScreenshotValue;
+        const decodedBytes = Utilities.base64Decode(base64Payload);
+        const blob = Utilities.newBlob(decodedBytes, mimeType, screenshotName);
+
+        const file = DriveApp.createFile(blob);
+        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        screenshotUrl = file.getUrl();
+
+        sheet.getRange(rowIndex, 12).setValue(screenshotName);
+        sheet.getRange(rowIndex, 13).setValue(screenshotUrl);
+        SpreadsheetApp.flush();
+      } catch (driveError) {
+        imageUploadError = driveError.toString();
+      }
+    }
 
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
       message: 'Order submitted successfully',
-      imageUrl: screenshotUrl
+      imageUrl: screenshotUrl,
+      imageUploadError: imageUploadError || null
     }));
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({
