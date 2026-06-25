@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Atom } from "react-loading-indicators";
+import qrCodeImage from "../assets/Qr code.jpeg";
 
 function OrderForm() {
   const PRODUCT_PRICE = 499;
@@ -234,7 +235,7 @@ function OrderForm() {
           <div className="checkout-card" style={{ marginTop: "24px", background: "linear-gradient(135deg, #f7fff9 0%, #fdf2f5 100%)", border: "1px solid #e5e7eb", borderRadius: "16px", padding: "24px", boxShadow: "0 6px 20px rgba(0,0,0,0.05)" }}>
             <h2 style={{ marginTop: 0 }}>Payment</h2>
             <p>Scan the QR code and upload the payment screenshot after completing the transfer.</p>
-            <img src="/src/assets/Qr code.jpeg" alt="Payment QR Code" style={{ width: "100%", maxWidth: "220px", height: "auto", aspectRatio: "1 / 1", border: "1px solid #ddd", borderRadius: "12px", padding: "12px", objectFit: "contain" }} />
+            <img src={qrCodeImage} alt="Payment QR Code" style={{ width: "100%", maxWidth: "220px", height: "auto", aspectRatio: "1 / 1", border: "1px solid #ddd", borderRadius: "12px", padding: "12px", objectFit: "contain" }} />
             <div style={{ marginTop: "16px" }}>
               <label style={labelStyle}>Upload Payment Screenshot</label>
               <input type="file" accept="image/*" onChange={(e) => setScreenshot(e.target.files[0])} style={{ display: "block", marginTop: "8px" }} />

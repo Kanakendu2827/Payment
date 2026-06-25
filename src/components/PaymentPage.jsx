@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import qrCodeImage from "../assets/Qr code.jpeg";
 
 function PaymentPage() {
   const location = useLocation();
@@ -64,7 +65,7 @@ function PaymentPage() {
 
       <h2>Amount Payable: ₹{state.total}</h2>
 
-      <img src="/Qr code.jpeg" alt="QR Code" width="250" />
+      <img src={qrCodeImage} alt="QR Code" width="250" />
 
       <br />
       <br />
